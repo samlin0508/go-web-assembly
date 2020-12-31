@@ -7,13 +7,49 @@
 			WebAssembly.instantiateStreaming(fetch("main.wasm"), go.importObject).then((result) => {
 				go.run(result.instance);
 			});
+
+			// Because Safari does not support WebAssembly.instantiateStreaming() so far, use the following method instead.
+			// fetch('main.wasm').then(response =>
+			// 	response.arrayBuffer()
+			// ).then(bytes =>
+			// 	WebAssembly.instantiate(bytes, go.importObject)
+			// ).then(result =>
+			// 	go.run(result.instance)
+			// );
 		</script>
+		<style>
+			h1 {
+				text-align: center;
+			}
+
+			.container {
+				margin: 50px;
+				display: flex;
+				flex-direction: row;
+				justify-content: center;
+				align-items: flex-start;
+			}
+
+			.element {
+				font-size: 100px;
+				padding: 50px;
+				width: 20%;
+				text-align: center;
+			}
+
+			button.element {
+				cursor: pointer;
+			}
+		</style>
 	</head>
 	<body>
-		<input type="text" id="value1">
-		<span>+</span>
-		<input type="text" id="value2">
-		<button onclick="add('value1', 'value2', 'result');">=</button>
-		<span id="result"></span>
+		<h1>以JavaScript呼叫Golang加法器</h1>
+		<div class="container">
+			<input type="text" id="value1" class="element" value="0">
+			<span class="element">+</span>
+			<input type="text" id="value2" class="element" value="0">
+			<button onclick="add('value1', 'value2', 'result');" class="element">=</button>
+			<span id="result" class="element">0</span>
+		</div>
 	</body>
 </html>
